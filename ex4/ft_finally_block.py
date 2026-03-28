@@ -3,8 +3,7 @@ class GardenError(Exception):
     Base exception class for all garden-related errors.
     """
     def __init__(self, message: str = "Unknown garden error") -> None:
-        self.message = message
-        super().__init__(self.message)
+        super().__init__(message)
 
 
 class PlantError(GardenError):
@@ -41,7 +40,8 @@ def test_watering_system() -> None:
     except PlantError as e:
         print(f"Caught PlantError: {e}")
         print("ending tests and returning to main")
-        return
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
     finally:
         print("Closing watering system")
 
@@ -53,7 +53,8 @@ def test_watering_system() -> None:
     except PlantError as e:
         print(f"Caught PlantError: {e}")
         print("ending tests and returning to main")
-        return
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
     finally:
         print("Closing watering system")
         print("\nCleanup always happens, even with errors!")

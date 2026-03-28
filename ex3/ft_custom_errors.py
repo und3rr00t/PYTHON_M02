@@ -23,18 +23,20 @@ class WaterError(GardenError):
         super().__init__(message)
 
 
-def test_plant_error() -> None:
+def test_plant_error(sunlight_hours: int) -> None:
     """
     Raises a PlantError for demonstration purposes.
     """
-    raise PlantError("The tomato plant is wilting!")
+    if sunlight_hours < 6 or sunlight_hours > 12:
+        raise PlantError("The tomato plant is wilting!")
 
 
-def test_water_error() -> None:
+def test_water_error(tank_volume_liters: int) -> None:
     """
     Raises a WaterError for demonstration purposes.
     """
-    raise WaterError("Not enough water in the tank!")
+    if tank_volume_liters <= 0:
+        raise WaterError("Not enough water in the tank!")
 
 
 def test_custom_errors() -> None:
@@ -46,26 +48,34 @@ def test_custom_errors() -> None:
 
     print("\nTesting PlantError...")
     try:
-        test_plant_error()
+        test_plant_error(4)
     except PlantError as e:
         print(f"Caught PlantError: {e}")
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
 
     print("\nTesting WaterError...")
     try:
-        test_water_error()
+        test_water_error(0)
     except WaterError as e:
         print(f"Caught WaterError: {e}")
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
 
     print("\nTesting catching all garden errors..")
     try:
-        test_plant_error()
+        test_plant_error(13)
     except GardenError as e:
         print(f"Caught GardenError: {e}")
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
 
     try:
-        test_water_error()
+        test_water_error(0)
     except GardenError as e:
         print(f"Caught GardenError: {e}")
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
 
     print("\nAll custom error types work correctly!")
 

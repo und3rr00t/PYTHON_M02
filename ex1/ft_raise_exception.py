@@ -32,4 +32,7 @@ def test_temperature() -> None:
 
 
 if __name__ == "__main__":
-    test_temperature()
+    try:
+        test_temperature()
+    except Exception as e:
+        print(f"Caught unexpected error: {e}")
